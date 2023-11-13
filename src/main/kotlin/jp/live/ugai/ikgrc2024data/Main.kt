@@ -107,7 +107,8 @@ INSERT DATA {
                 if (place != null && Random.nextInt(10) < placeRate) {
                     deleteQuery.append("<${it["event"]}> vh2kg:place <$place> .\n")
                     insertQuery.append(
-                        "<${it["event"]}> vh2kg:place <http://kgrc4si.home.kg/virtualhome2kg/instance/PlaceXXX$number> .\n")
+                        "<${it["event"]}> vh2kg:place <http://kgrc4si.home.kg/virtualhome2kg/instance/PlaceXXX$number> .\n"
+                    )
                 }
                 val mainObject = it["mainObject"]
                 if (mainObject != null && Random.nextInt(10) < objectRate) {
