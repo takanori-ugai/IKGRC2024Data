@@ -41,11 +41,13 @@ class Main {
 // use the RDFDataMgr to find the input file
         val inputStream: InputStream = RDFDataMgr.open("file:$fileName")
         model.read(inputStream, null, "TURTLE")
+        inputStream.close()
 
         for (addName in listOf("add_classes.ttl", "add_places.ttl", "vh2kg_schema.ttl")) {
             val model2: Model = ModelFactory.createDefaultModel()
             val inputStream2: InputStream = RDFDataMgr.open("file:Data/$addName")
             model2.read(inputStream2, null, "TURTLE")
+            inputStream2.close()
             model.add(model2)
         }
 
@@ -79,7 +81,7 @@ select DISTINCT * where {
         QueryExecutionFactory.create(queryString, model).use { qexec ->
             var results: ResultSet? = qexec.execSelect()
 //        results = ResultSetFactory.copyResults(results)
-//        println(results.)
+//        println(results)
             results!!.forEach {
                 val deleteQuery = StringBuilder(
                     """
@@ -165,6 +167,7 @@ INSERT DATA {
             val fname = fileName.replace(".ttl", "")
             val outputStream = FileOutputStream("$fname-$placeRate$actionRate$objectRate.ttl")
             model.write(outputStream, "TURTLE")
+            outputStream.close()
         }
     }
 }
