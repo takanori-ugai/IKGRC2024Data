@@ -13,7 +13,12 @@ import kotlin.random.Random
 
 fun main(args: Array<String>) {
     val make = Main()
-    val fileNames = if (args.size > 0) { args } else { arrayOf("Data/Admire_art1_scene1.ttl") }
+    val fileNames =
+        if (args.size > 0) {
+            args
+        } else {
+            arrayOf("Data/Admire_art1_scene1.ttl")
+        }
     for (fileName in fileNames) {
         make.makeData(fileName, 2, 0, 0)
         make.makeData(fileName, 5, 0, 0)
@@ -34,8 +39,12 @@ fun main(args: Array<String>) {
 }
 
 class Main {
-
-    fun makeData(fileName: String, placeRate: Int, actionRate: Int, objectRate: Int) {
+    fun makeData(
+        fileName: String,
+        placeRate: Int,
+        actionRate: Int,
+        objectRate: Int,
+    ) {
         val model: Model = ModelFactory.createDefaultModel()
 
 // use the RDFDataMgr to find the input file
@@ -83,48 +92,56 @@ select DISTINCT * where {
 //        results = ResultSetFactory.copyResults(results)
 //        println(results)
             results!!.forEach {
-                val deleteQuery = StringBuilder(
-                    """
+                val deleteQuery =
+                    StringBuilder(
+                        """
 PREFIX ex: <http://kgrc4si.home.kg/virtualhome2kg/instance/>
 PREFIX : <http://kgrc4si.home.kg/virtualhome2kg/ontology/>
 PREFIX vh2kg: <http://kgrc4si.home.kg/virtualhome2kg/ontology/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX time: <http://www.w3.org/2006/time#>
 DELETE DATA {
-    """
-                )
-                val insertQuery = StringBuilder(
-                    """
+    """,
+                    )
+                val insertQuery =
+                    StringBuilder(
+                        """
 PREFIX ex: <http://kgrc4si.home.kg/virtualhome2kg/instance/>
 PREFIX : <http://kgrc4si.home.kg/virtualhome2kg/ontology/>
 PREFIX vh2kg: <http://kgrc4si.home.kg/virtualhome2kg/ontology/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX time: <http://www.w3.org/2006/time#>
 INSERT DATA {
-    """
-                )
+    """,
+                    )
                 val place = it["place"]
                 val number = it["number"].asLiteral().int
                 println(number)
                 if (place != null && Random.nextInt(10) < placeRate) {
                     deleteQuery.append("<${it["event"]}> vh2kg:place <$place> .\n")
                     insertQuery.append(
-                        "<${it["event"]}> vh2kg:place <http://kgrc4si.home.kg/virtualhome2kg/instance/PlaceXXX$number> .\n"
+                        "<${it["event"]}> vh2kg:place <http://kgrc4si.home.kg/virtualhome2kg/instance/PlaceXXX$number> .\n",
                     )
                 }
                 val mainObject = it["mainObject"]
                 if (mainObject != null && Random.nextInt(10) < objectRate) {
                     deleteQuery.append("<${it["event"]}> :mainObject <$mainObject> .\n")
-                    insertQuery.append("<${it["event"]}> :mainObject <http://kgrc4si.home.kg/virtualhome2kg/instance/MainObjectXXX$number> .\n")
+                    insertQuery.append(
+                        "<${it["event"]}> :mainObject <http://kgrc4si.home.kg/virtualhome2kg/instance/MainObjectXXX$number> .\n",
+                    )
                 }
                 val targetObject = it["targetObject"]
                 if (targetObject != null && Random.nextInt(10) < objectRate) {
                     deleteQuery.append("<${it["event"]}> :targetObject <$targetObject> .\n")
-                    insertQuery.append("<${it["event"]}> :targetObject <http://kgrc4si.home.kg/virtualhome2kg/instance/TargetObjectXXX$number> .\n")
+                    insertQuery.append(
+                        "<${it["event"]}> :targetObject <http://kgrc4si.home.kg/virtualhome2kg/instance/TargetObjectXXX$number> .\n",
+                    )
                 }
                 if (Random.nextInt(10) < actionRate) {
                     deleteQuery.append("<${it["event"]}> :action <${it["action"]}> .\n")
-                    insertQuery.append("<${it["event"]}> :action <http://kgrc4si.home.kg/virtualhome2kg/ontology/action/ActionXXX$number> .\n")
+                    insertQuery.append(
+                        "<${it["event"]}> :action <http://kgrc4si.home.kg/virtualhome2kg/ontology/action/ActionXXX$number> .\n",
+                    )
                 }
                 deleteQuery.append("}\n")
                 insertQuery.append("}\n")

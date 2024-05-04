@@ -26,6 +26,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.6.3")
     implementation("org.apache.jena:apache-jena-libs:4.10.0")
     testImplementation(kotlin("test"))
 }
