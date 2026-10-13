@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     kotlin("plugin.serialization") version "2.4.20"
     java
     id("com.github.johnrengelman.shadow") version "8.1.1"
