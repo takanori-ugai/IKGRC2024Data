@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 plugins {
-    kotlin("jvm") version "2.4.20"
+    kotlin("jvm") version "2.4.21"
     kotlin("plugin.serialization") version "2.4.21"
     java
     id("com.github.johnrengelman.shadow") version "8.1.1"
@@ -14,7 +14,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "14.2.0"
     id("com.github.jk1.dependency-license-report") version "3.1.4"
     id("com.github.spotbugs") version "6.5.12"
-    id("com.diffplug.spotless") version "8.10.3"
+    id("com.diffplug.spotless") version "8.10.4"
     application
 }
 
